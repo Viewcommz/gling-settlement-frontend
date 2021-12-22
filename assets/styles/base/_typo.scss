@@ -1,0 +1,114 @@
+// @import url('assets/fonts/NotoSansKR-Regular.woff');
+// @include font('Noto Sans KR', '~assets/fonts/NotoSansKR-Regular');
+// @include font('Noto Serif KR', '~assets/fonts/NotoSerifKR-Regular');
+@font-face {
+    font-family: 'Spoqa Han Sans';
+    font-style: normal;
+    font-weight: 100;
+    src: url('~assets/fonts/Spoqa-Han-Sans-Neo-Thin.woff2') format('woff2'),
+         url('~assets/fonts/Spoqa-Han-Sans-Neo-Thin.woff') format('woff'),
+         url('~assets/fonts/Spoqa-Han-Sans-Neo-Thin.otf') format('opentype');
+}
+@font-face {
+    font-family: 'Spoqa Han Sans';
+    font-style: normal;
+    font-weight: 300;
+    src: url('~assets/fonts/Spoqa-Han-Sans-Neo-Light.woff2') format('woff2'),
+         url('~assets/fonts/Spoqa-Han-Sans-Neo-Light.woff') format('woff'),
+         url('~assets/fonts/Spoqa-Han-Sans-Neo-Light.otf') format('opentype');
+}
+@font-face {
+    font-family: 'Spoqa Han Sans';
+    font-style: normal;
+    font-weight: 400;
+    src: url('~assets/fonts/Spoqa-Han-Sans-Neo-Regular.woff2') format('woff2'),
+         url('~assets/fonts/Spoqa-Han-Sans-Neo-Regular.woff') format('woff'),
+         url('~assets/fonts/Spoqa-Han-Sans-Neo-Regular.otf') format('opentype');
+}
+@font-face {
+    font-family: 'Spoqa Han Sans';
+    font-style: normal;
+    font-weight: 500;
+    src: url('~assets/fonts/Spoqa-Han-Sans-Neo-Medium.woff2') format('woff2'),
+         url('~assets/fonts/Spoqa-Han-Sans-Neo-Medium.woff') format('woff'),
+         url('~assets/fonts/Spoqa-Han-Sans-Neo-Medium.otf') format('opentype');
+}
+@font-face {
+    font-family: 'Spoqa Han Sans';
+    font-style: normal;
+    font-weight: 700;
+    src: url('~assets/fonts/Spoqa-Han-Sans-Neo-Bold.woff2') format('woff2'),
+         url('~assets/fonts/Spoqa-Han-Sans-Neo-Bold.woff') format('woff'),
+         url('~assets/fonts/Spoqa-Han-Sans-Neo-Bold.otf') format('opentype');
+}
+@font-face {
+    font-family: 'Spoqa Han Sans';
+    font-style: normal;
+    font-weight: 700;
+    src: url('~assets/fonts/Spoqa-Han-Sans-Neo-Bold.woff2') format('woff2'),
+         url('~assets/fonts/Spoqa-Han-Sans-Neo-Bold.woff') format('woff'),
+         url('~assets/fonts/Spoqa-Han-Sans-Neo-Bold.otf') format('opentype');
+}
+@import url(//fonts.googleapis.com/earlyaccess/nanummyeongjo.css);
+
+$font-sans: 'Spoqa Han Sans', sans-serif;
+$font-serif: 'Nanum Myeongjo', serif;
+
+body {
+    font-family: $font-sans;
+    word-break: keep-all;
+}
+h1 {
+    font-size: 38px;
+    letter-spacing: 0px;
+    color: #222;
+    font-weight: 700;
+}
+h2 {
+    font-size: 38px;
+    letter-spacing: 0px;
+    color: #222;
+    font-weight: 400;
+}
+h3 {
+    font-size: 22px;
+    letter-spacing: 0px;
+    color: #222;
+    font-weight: 400;
+}
+h4 {
+    font-size: 16px;
+    letter-spacing: 0px;
+    color: #222;
+    font-weight: 100;
+}
+h5 {
+    font-size: 14px;
+    letter-spacing: -20px;
+    color: #222;
+    font-weight: 100;
+}
+.body-1 {
+    font-size: 16px;
+    letter-spacing: 0px;
+    color: #777;
+    font-weight: 400;
+}
+.body-2 {
+    font-size: 12px;
+    // letter-spacing: -20px;
+    color: #777;
+    font-weight: 400;
+}
+caption {
+    font-size: 14px;
+    letter-spacing: -20px;
+    color: #aaa;
+    font-weight: 400;
+}
+.v-application .title {
+    font-family: $font-sans !important;
+    font-weight: unset !important;
+    font-size: unset !important;
+    line-height: unset im !important;
+}
