@@ -4,12 +4,12 @@
       <p>데스크탑 : {{ $device.isDesktop}}</p>
       <p>모바일 : {{ $device.isMobile}}</p>
 
-      <div v-if="$device.isDesktop">
         <Banner />
+      <!-- <div v-if="$device.isDesktop">
       </div>
       <div v-else>
         <MobBanner />
-      </div>
+      </div> -->
   </div>
 </template>
 

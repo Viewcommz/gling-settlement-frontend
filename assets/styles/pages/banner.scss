@@ -1,31 +1,77 @@
 #top-banner {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  height: 800px;
-  background: #00BCD4;
-  
-  .banner-text {
+  // background: #00BCD4;
+    width: 100vw;
     position: relative;
-    height: fit-content;
-    top: 90px;
-    padding: 0 360px;
-    p { 
+    left: calc(50% - 50vw);
+  
+  .banner-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    height: 800px;
+    // background: if(lightness($test-color) > 50%, coral, orange);
+    background: var(--bg-color, $color-blue500);
+    font-family: $font-sans !important;
+    padding: 90px 320px 0;
+
+    
+    .banner-text {
+      // position: relative;
+      height: fit-content;
+      // top: 90px;
+      p {
+        white-space: pre-line; 
+        color: var(--font-color, $color-black)
+      }
+      h3 {
+        font-size: 48px;
+        font-weight: 400;
+        margin-top: 20px;
+        color: var(--font-color, $color-black);
+        line-height: 120%;
+      }
+      h2 {
+        font-size: 60px;
+        font-weight: 600;
+        margin-bottom: 40px;
+        color: var(--font-color, $color-black)
+      }
+  
+      .tag {
+        color: $color-white;
+        font-weight: 400;
+        margin-bottom: 20px;
+        color: var(--tag-color, $color-white)
+      }
     }
-    h3 {
-      font-size: 48px;
-      font-weight: 400;
-      margin-top: 20px;
+    .banner-img {
+      width: 720px;
+      height: 600px;
+      border: 3px solid red;
     }
-    h2 {
-      font-size: 60px;
-      font-weight: 600;
-      margin-bottom: 40px;
+  }
+
+  .v-application--wrap{
+    min-height: unset;
+    .v-window {
+      .fade-transition{
+        &-leave-active {
+          position: absolute;
+        }
+        &-enter-active, &-leave, &-leave-to {
+          transition: 1500ms !important; /* here you can define your desired time for transition */
+        }
+        &-enter, &-leave-to {
+          opacity: 0
+        }
+      }
     }
 
-    .tag {
-      color: $color-white;
-      font-weight: 400;
+    .v-carousel .v-window-item{
+      position: absolute;
+      top: 0;
+      width: 100%;
     }
   }
 }

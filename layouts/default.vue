@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="tmp-container">
     <app-header ref="header"/>
     <nuxt />
   </div>
