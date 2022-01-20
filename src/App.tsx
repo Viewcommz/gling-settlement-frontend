@@ -1,12 +1,18 @@
 import React from 'react';
 import './App.css';
+import './styles/reset.css';
+import { ThemeProvider } from 'styled-components';
+import theme from 'styles/theme';
+
 import NavBar from 'components/modules/navBar';
 
 function App() {
   return (
-    <div className="App">
-      <NavBar/>
-    </div>
+    <ThemeProvider theme={theme}>
+      <div className="App">
+        <NavBar/>
+      </div>
+    </ThemeProvider>
   );
 }
 

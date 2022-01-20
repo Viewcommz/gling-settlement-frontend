@@ -7,35 +7,35 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "store";
 
 import { useEffect } from "react";
-import axios from "axios";
+import useApi from "hooks/useApi";
 
 const NavBar = () => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state:RootState) => state.login.isLoggedIn);
   console.log("isLoggedIn", isLoggedIn);
   
+  const { isLoading, error, sendReqeust:fetchLoginData } = useApi();
+
+
   const apiData = {
-    email: "", 
-    password: "",
-    sid: "" //HxW1Lab4AB
+    email: "yangmae@gmail.com", 
+    password: "yangmae123",
+    sid: "HxW1Lab4AB" //HxW1Lab4AB
   }
-  const fetchData = async() => {
-    const res = await axios({
-      method:"POST",
-      url: '/api/user/local/login',
-      data: apiData,
-      withCredentials: true,
-    })
-    console.log('res', res);
-    if (res.data.status === "success") {
-      return res.data.data
-    } else {
-      return null;
-    }
-  }
+
   useEffect(() => {
-    dispatch(loginActions.login());
-    fetchData()
+    const checkLogin = (loginData:object) => {
+      console.log("nverbar loginData", loginData);
+      dispatch(loginActions.login(false));
+    }
+    fetchLoginData(
+      {
+      method: "POST",
+      url: 'user/local/login',
+      data: apiData,
+      },
+      checkLogin
+    );
     return () => {
       // cleanup
     }
@@ -45,17 +45,18 @@ const NavBar = () => {
     <div>
       <HeaderContainer>
         <HeaderContents>
-          <Icon icon="logo" size={28} />
-          <BizTitleBox>정산관리</BizTitleBox>
+          <div className="logo-wrap">
+            <Icon icon="logo" size={28} />
+            <BizTitleBox>정산관리</BizTitleBox>
+          </div>
           <MidMenu>
-            <h6>대시보드</h6>
-            <h6>정산관리</h6>
-            <h6>포트폴리오 관리</h6>
-            <h6>E-BOOK제작</h6>
-            <h6>고객센터</h6>
+          <h6>서비스 소개</h6>
+            <h6>요금 안내</h6>
+            <h6>이용가이드</h6>
+            <h6>문의하기</h6>
           </MidMenu>
           <RightMenu>
-            <Button  text="로그인" />
+            <Button text="로그인"/>
             <Button text="시작하기" />
           </RightMenu>
         </HeaderContents>
@@ -79,10 +80,17 @@ const HeaderContents = styled.div`
   font-family: "Spoqa Han Sans", sans-serif;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   background-color: #fff;
   width: 1200px;
   height: 100%;
   margin: 0 auto;
+
+  .logo-wrap {
+    border: 1px solid salmon;
+    display: flex;
+    align-items: center;
+  }
 `
 
 const MidMenu = styled.div`
@@ -90,9 +98,13 @@ const MidMenu = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 40%;
+  /* width: 40%; */
   font-size: 16px;
   cursor: pointer;
+  /* 30px */
+  h6 + h6 {
+    margin-left: 30px;
+  }
 `
 
 const RightMenu = styled.div`
@@ -100,7 +112,7 @@ const RightMenu = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 40%;
+  /* width: 40%; */
   font-size: 16px;
   cursor: pointer;
 `
