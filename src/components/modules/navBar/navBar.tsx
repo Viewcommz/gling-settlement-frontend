@@ -11,7 +11,7 @@ import useApi from "hooks/useApi";
 
 import profile from "assets/images/profile.png";
 import { NavLink } from "react-router-dom";
-
+import { Outlet } from "react-router-dom";
 
 import {
   HeaderContainer,
@@ -26,17 +26,19 @@ const NavBar = () => {
   const isLoggedIn = useSelector((state: RootState) => state.login.isLoggedIn);
   console.log("isLoggedIn", isLoggedIn);
 
-  const { isLoading, error, sendReqeust: fetchLoginData } = useApi();
+  const { isLoading, error, sendRequest: fetchLoginData } = useApi();
 
   const apiData = {
-    email: "yangmae@gmail.com",
-    password: "yangmae123",
-    sid: "HxW1Lab4AB", //HxW1Lab4AB
+    email: "@gmail.com",
+    password: "",
+    sid: "", //
   };
 
   useEffect(() => {
     dispatch(loginActions.login(false));
-
+    if(isLoggedIn) {
+      console.log("nav 변경")
+    }
     // const checkLogin = (loginData: object) => {
     //   console.log("nverbar loginData", loginData);
     //   dispatch(loginActions.login(true));
@@ -52,20 +54,24 @@ const NavBar = () => {
     return () => {
       // cleanup
     };
-  }, []);
+  }, [isLoggedIn]);
 
   return (
     <div>
       <HeaderContainer>
         <HeaderContents>
-          <div className="logo-wrap">
-            <Icon icon="logo" size={28} />
-            <BizTitleBox>정산관리</BizTitleBox>
-          </div>
+          <CustomNav to="/">
+            <div className="logo-wrap">
+              <Icon icon="logo" size={28} />
+              <BizTitleBox>정산관리</BizTitleBox>
+            </div>
+          </CustomNav>
           {isLoggedIn ? (
             <Fragment>
               <MidMenu>
-                <h6><NavLink to="sub">대시보드</NavLink></h6>
+                <h6>
+                  <NavLink to="sub">대시보드</NavLink>
+                </h6>
                 <h6>정산관리</h6>
                 <h6>포트폴리오 관리</h6>
                 <h6>E-BOOK제작</h6>
@@ -81,34 +87,50 @@ const NavBar = () => {
           ) : (
             <Fragment>
               <MidMenu>
-                <h6><CustomNav title="서비스 소개" to="/" /></h6>
-                <h6><CustomNav title="요금 안내" to="pricing" /></h6>
-                <h6><CustomNav title="이용가이드" to="guide" /></h6>
-                <h6><CustomNav title="문의하기" to="consult" /></h6>
+                <h6>
+                  <CustomNav title="서비스 소개" to="/" />
+                </h6>
+                <h6>
+                  <CustomNav title="요금 안내" to="pricing" />
+                </h6>
+                <h6>
+                  <CustomNav title="이용가이드" to="guide" />
+                </h6>
+                <h6>
+                  <CustomNav title="문의하기" to="consult" />
+                </h6>
               </MidMenu>
               <RightMenu>
-                <CustomNav to="/signin" >
-                  <Button text="로그인" outline />
+                <CustomNav to="/signin">
+                  <Button label="로그인" outline />
                 </CustomNav>
-                <Button text="시작하기" />
+                <Button label="시작하기" />
               </RightMenu>
             </Fragment>
-          )
-        }
+          )}
         </HeaderContents>
       </HeaderContainer>
+      <Outlet />
     </div>
   );
 };
 
-function CustomNav({ title, to, children }:{ title?:string; to:string; children?:React.ReactNode }) {
+export function CustomNav({
+  title,
+  to,
+  children,
+}: {
+  title?: string;
+  to: string;
+  children?: React.ReactNode;
+}) {
   const navStyle = {
-    fontWeight: 600
-  }
+    fontWeight: 600,
+  };
   return (
     <NavLink to={to} style={({ isActive }) => (isActive ? navStyle : {})}>
-      { children? children : title }
+      {children ? children : title}
     </NavLink>
-  )
+  );
 }
 export default NavBar;

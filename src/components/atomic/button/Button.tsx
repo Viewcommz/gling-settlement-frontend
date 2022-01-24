@@ -5,12 +5,23 @@ interface StyledProps {
   size?: string;
 }
 interface ButtonProps extends StyledProps {
-  text: string;
+  label: string;
+  type?: "button" | "submit" | "reset";
+  disabled?: boolean;
+  onClickHandler?: () => void;
 }
 
-function Button({ text, outline, size }: ButtonProps) {
-  console.log(`text: ${text} ouline ${outline}`)
-  return <StyledButton outline={outline} size={size}>{text}</StyledButton>;
+function Button({ label, type, disabled, outline, size, onClickHandler }: ButtonProps) {
+  return (
+    <StyledButton 
+      type={type}
+      outline={outline} 
+      size={size}
+      disabled={disabled}
+      onClick={onClickHandler}
+    >
+      {label}
+    </StyledButton>);
 }
 
 const StyledButton = styled.button<StyledProps>`
@@ -18,6 +29,7 @@ const StyledButton = styled.button<StyledProps>`
   align-items: center;
   justify-content: center;
   border-radius: 40px;
+  border: unset;
   ${({ outline, theme }) => 
       outline?
       css`

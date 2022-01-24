@@ -1,6 +1,7 @@
+import Banner from "components/modules/banner/Banner";
 function Landing() {
   return <div>
-    랜딩페이지
+    <Banner/>
   </div>;
 }
 

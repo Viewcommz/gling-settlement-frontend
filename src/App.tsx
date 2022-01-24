@@ -1,48 +1,49 @@
-import React, { Fragment, useEffect } from "react";
-import "./App.css";
-import "./styles/reset.css";
+import { Fragment } from "react";
+import { RouteObject, useRoutes } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
+import GlobalStyle from "styles/GlobalStyle";
 import theme from "styles/theme";
 import NavBar from "components/modules/navBar/navBar";
-
-import { Routes, Route, Outlet, BrowserRouter, Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import useApi from "hooks/useApi";
-
-import { loginActions } from "store/login";
+import { Pricing, Guide, Consult } from "pages/landing";
+import Home from "pages/index";
+import Signin from "pages/account/signin/signin";
 
 function App() {
-  // 로그인 여부 확인
-  const dispatch = useDispatch();
-  // const { sendRequest: fetchLoginData } = useApi();
-
-  const apiData = {
-    email: "yangmae@gmail.com",
-    password: "yangmae123",
-    sid: "HxW1Lab4AB", //HxW1Lab4AB
-  };
-  useEffect(() => {
-    dispatch(loginActions.login(false));
-
-    // const checkLogin = (loginData: object) => {
-    //   console.log("nverbar loginData", loginData);
-    //   dispatch(loginActions.login(true));
-    // };
-    // fetchLoginData(
-    //   {
-    //     method: "POST",
-    //     url: "user/local/login",
-    //     data: apiData,
-    //   },
-    //   checkLogin
-    // );
-  },[]);
-
+  const routes: RouteObject[] = [
+    {
+      path: "/",
+      element: <NavBar />,
+      children: [
+        { index: true, element: <Home /> },
+        {
+          path: "/pricing",
+          element: <Pricing />,
+        },
+        {
+          path: "/guide",
+          element: <Guide />,
+        },
+        {
+          path: "/consult",
+          element: <Consult />,
+        },
+        {
+          path: "/signin",
+          element: <Signin />,
+        },
+        { path: "*", element: ()=>(<div>no matched!</div>) }
+      ]
+    }
+  ];
+  let element = useRoutes(routes);
+  
   return (
-    <ThemeProvider theme={theme}>
-      <NavBar />
-      <Outlet/>
-    </ThemeProvider>
+    <Fragment>
+      <GlobalStyle />
+      <ThemeProvider theme={theme}>
+        {element}
+      </ThemeProvider>
+    </Fragment>
   );
 }
 

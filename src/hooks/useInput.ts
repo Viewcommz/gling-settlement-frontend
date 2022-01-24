@@ -46,11 +46,11 @@ function useInput(validateValue: (value: string) => boolean) {
     dispatch({ type: "INPUT", value: event.target.value });
   }
 
-  function inputBlurHandler(event: React.ChangeEvent<HTMLInputElement>) {
+  function inputBlurHandler() {
     dispatch({ type: "BLUR" });
   }
 
-  function reset(event: React.ChangeEvent<HTMLInputElement>) {
+  function reset() {
     dispatch({ type: "RESET" });
   }
 

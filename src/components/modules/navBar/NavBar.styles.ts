@@ -6,7 +6,7 @@ export const HeaderContainer = styled.div`
   height: 72px;
   position: relative;
   left: calc(50% - 50vw);
-  border: 1px solid black;
+  /* border: 1px solid black; */
 `;
 
 export const HeaderContents = styled.div`
@@ -20,14 +20,14 @@ export const HeaderContents = styled.div`
   margin: 0 auto;
 
   .logo-wrap {
-    border: 1px solid salmon;
+    /* border: 1px solid salmon; */
     display: flex;
     align-items: center;
   }
 `;
 
 export const MidMenu = styled.div`
-  border: 1px solid red;
+  /* border: 1px solid red; */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -44,7 +44,7 @@ export const MidMenu = styled.div`
 `;
 
 export const RightMenu = styled.div`
-  border: 1px solid blue;
+  /* border: 1px solid blue; */
   display: flex;
   align-items: center;
   justify-content: space-between;

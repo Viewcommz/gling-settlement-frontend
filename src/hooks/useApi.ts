@@ -18,7 +18,7 @@ const useApi = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
 
-  const sendReqeust = useCallback(
+  const sendRequest = useCallback(
     async (reqeustConfig:RequestConfig, applyData:(props:object) => void) => {
       setIsLoading(true);
       console.log("requestConfig", reqeustConfig);
@@ -54,7 +54,7 @@ const useApi = () => {
   return {
     isLoading,
     error,
-    sendReqeust
+    sendRequest
   };
 };
 
