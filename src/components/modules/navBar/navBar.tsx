@@ -1,60 +1,36 @@
 import Icon from "components/atomic/icons/icon";
-import styled from "styled-components";
-import Button from "components/atomic/button/Button";
+import NavButton from "components/atomic/button/NavButton";
 
-import { loginActions } from "store/login";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "store";
 
-import { Fragment, useEffect } from "react";
-import useApi from "hooks/useApi";
+import { Fragment, useState } from "react";
 
 import profile from "assets/images/profile.png";
 import { NavLink } from "react-router-dom";
 import { Outlet } from "react-router-dom";
-
 import {
   HeaderContainer,
   HeaderContents,
   MidMenu,
   RightMenu,
   BizTitleBox,
+  Profile,
+  ProfileMenu
 } from "./NavBar.styles";
+import DropDown, { UserDropDown } from "components/modules/dropdown/Dropdown";
 
 const NavBar = () => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state: RootState) => state.login.isLoggedIn);
+  const userData = useSelector((state:RootState)=>state.user);
   console.log("isLoggedIn", isLoggedIn);
 
-  const { isLoading, error, sendRequest: fetchLoginData } = useApi();
+  const [showMenu, setShowMenu] = useState(false);
 
-  const apiData = {
-    email: "@gmail.com",
-    password: "",
-    sid: "", //
-  };
-
-  useEffect(() => {
-    dispatch(loginActions.login(false));
-    if(isLoggedIn) {
-      console.log("nav 변경")
-    }
-    // const checkLogin = (loginData: object) => {
-    //   console.log("nverbar loginData", loginData);
-    //   dispatch(loginActions.login(true));
-    // };
-    // fetchLoginData(
-    //   {
-    //     method: "POST",
-    //     url: "user/local/login",
-    //     data: apiData,
-    //   },
-    //   checkLogin
-    // );
-    return () => {
-      // cleanup
-    };
-  }, [isLoggedIn]);
+  function profileClickHandler() {
+    setShowMenu(state => !state);
+  }
 
   return (
     <div>
@@ -69,42 +45,37 @@ const NavBar = () => {
           {isLoggedIn ? (
             <Fragment>
               <MidMenu>
-                <h6>
+                <li>
                   <NavLink to="sub">대시보드</NavLink>
-                </h6>
-                <h6>정산관리</h6>
-                <h6>포트폴리오 관리</h6>
-                <h6>E-BOOK제작</h6>
-                <h6>고객센터</h6>
+                </li>
+                <li>정산관리</li>
+                <li>포트폴리오 관리</li>
+                <li>E-BOOK제작</li>
+                <li>고객센터</li>
               </MidMenu>
-              <RightMenu>
-                <div className="profile">
-                  <img src={profile} alt="유저프로필" />
-                </div>
-                <h6>김강림</h6>
-              </RightMenu>
+              <ProfileMenu 
+                onClick={profileClickHandler}
+              >
+                <Profile>
+                  <div className="profile">
+                    <img src={profile} alt="유저프로필" />
+                  </div>
+                  <li>{userData.user_nickname}</li>
+                </Profile>
+                <UserDropDown showMenu={showMenu}/>
+              </ProfileMenu>
             </Fragment>
           ) : (
             <Fragment>
               <MidMenu>
-                <h6>
-                  <CustomNav title="서비스 소개" to="/" />
-                </h6>
-                <h6>
-                  <CustomNav title="요금 안내" to="pricing" />
-                </h6>
-                <h6>
-                  <CustomNav title="이용가이드" to="guide" />
-                </h6>
-                <h6>
-                  <CustomNav title="문의하기" to="consult" />
-                </h6>
+                <li><CustomNav title="서비스 소개" to="/" /></li>
+                <li><CustomNav title="요금 안내" to="pricing" /></li>
+                <li><CustomNav title="이용가이드" to="guide" /></li>
+                <li><CustomNav title="문의하기" to="consult" /></li>
               </MidMenu>
               <RightMenu>
-                <CustomNav to="/signin">
-                  <Button label="로그인" outline />
-                </CustomNav>
-                <Button label="시작하기" />
+                <NavButton label="로그인" outline to="/signin" />
+                <NavButton label="시작하기" to="/signup" />
               </RightMenu>
             </Fragment>
           )}
@@ -114,6 +85,7 @@ const NavBar = () => {
     </div>
   );
 };
+
 
 export function CustomNav({
   title,

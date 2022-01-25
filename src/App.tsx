@@ -7,6 +7,7 @@ import NavBar from "components/modules/navBar/navBar";
 import { Pricing, Guide, Consult } from "pages/landing";
 import Home from "pages/index";
 import Signin from "pages/account/signin/signin";
+import "./App.css";
 
 function App() {
   const routes: RouteObject[] = [

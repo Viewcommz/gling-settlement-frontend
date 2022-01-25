@@ -14,12 +14,12 @@ export default class SimpleSlider extends Component {
       slidesToShow: 1,
       slidesToScroll: 1,
       autoplay: true,
-      autoplaySpeed: 3000,
+      autoplaySpeed: 1500,
       cssEase: "linear"
     };
     return (
       <div>
-        <h2> Single Item</h2>
+        <h2> 랜딩페이지 캐러셀</h2>
         <Slider {...settings}>
           <div>
             <h3>1</h3>

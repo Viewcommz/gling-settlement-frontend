@@ -1,70 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
-body {
-  margin: 0;
-  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale; */
-  font-family: 'Spoqa Han Sans', sans-serif;
-}
-
-a {
-	color: #121417;
-}
-// ===========================================================================
-// Font Style
-// ===========================================================================
-@font-face {
-  font-family: 'Spoqa Han Sans';
-  font-style: normal;
-  font-weight: 100;
-  src: url('assets/fonts/Spoqa-Han-Sans-Neo-Thin.woff2') format('woff2'),
-       url('assets/fonts/Spoqa-Han-Sans-Neo-Thin.woff') format('woff'),
-       url('assets/fonts/Spoqa-Han-Sans-Neo-Thin.otf') format('opentype');
-}
-@font-face {
-  font-family: 'Spoqa Han Sans';
-  font-style: normal;
-  font-weight: 300;
-  src: url('assets/fonts/Spoqa-Han-Sans-Neo-Light.woff2') format('woff2'),
-       url('assets/fonts/Spoqa-Han-Sans-Neo-Light.woff') format('woff'),
-       url('assets/fonts/Spoqa-Han-Sans-Neo-Light.otf') format('opentype');
-}
-@font-face {
-  font-family: 'Spoqa Han Sans';
-  font-style: normal;
-  font-weight: 400;
-  src: url('assets/fonts/Spoqa-Han-Sans-Neo-Regular.woff2') format('woff2'),
-       url('assets/fonts/Spoqa-Han-Sans-Neo-Regular.woff') format('woff'),
-       url('assets/fonts/Spoqa-Han-Sans-Neo-Regular.otf') format('opentype');
-}
-@font-face {
-  font-family: 'Spoqa Han Sans';
-  font-style: normal;
-  font-weight: 500;
-  src: url('assets/fonts/Spoqa-Han-Sans-Neo-Medium.woff2') format('woff2'),
-       url('assets/fonts/Spoqa-Han-Sans-Neo-Medium.woff') format('woff'),
-       url('assets/fonts/Spoqa-Han-Sans-Neo-Medium.otf') format('opentype');
-}
-@font-face {
-  font-family: 'Spoqa Han Sans';
-  font-style: normal;
-  font-weight: 700;
-  src: url('assets/fonts/Spoqa-Han-Sans-Neo-Bold.woff2') format('woff2'),
-       url('assets/fonts/Spoqa-Han-Sans-Neo-Bold.woff') format('woff'),
-       url('assets/fonts/Spoqa-Han-Sans-Neo-Bold.otf') format('opentype');
-}
-@font-face {
-  font-family: 'Spoqa Han Sans';
-  font-style: normal;
-  font-weight: 700;
-  src: url('assets/fonts/Spoqa-Han-Sans-Neo-Bold.woff2') format('woff2'),
-       url('assets/fonts/Spoqa-Han-Sans-Neo-Bold.woff') format('woff'),
-       url('assets/fonts/Spoqa-Han-Sans-Neo-Bold.otf') format('opentype');
-}
 // ===========================================================================
 // Reset CSS
 //
@@ -77,7 +13,7 @@ input,
 optgroup,
 select,
 textarea {
-  font-family: inherit; /* 1 */
+  //font-family: inherit; /* 1 */
   font-size: 100%; /* 1 */
   line-height: 1.15; /* 1 */
   margin: 0; /* 2 */
@@ -121,7 +57,7 @@ time, mark, audio, video {
 	padding: 0;
 	border: 0;
 	font-size: 100%;
-	font: inherit;
+	/* font: inherit; */
 	vertical-align: baseline;
 }
 html {
@@ -135,7 +71,7 @@ footer, header, hgroup, menu, nav, section {
 body {
 	line-height: 1;
 }
-ol, ul {
+ol, ul, li {
 	list-style: none;
 }
 blockquote, q {
@@ -153,6 +89,65 @@ table {
 input, input:hover, input:active {
 	outline: 0;
 } 
+
+// ===========================================================================
+// Custom CSS
+// ===========================================================================
+* {
+  font-family: 'Spoqa Han Sans', sans-serif;
+	box-sizing: border-box;
+}
+body {
+  margin: 0;
+	word-break: keep-all;
+  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; */
+  /* font-family: 'Spoqa Han Sans', sans-serif; */
+}
+
+a {
+	color: #121417;
+  text-decoration: none;
+}
+
+h1 {
+    font-size: 48px;
+    letter-spacing: 0px;
+    color: #121417;
+    font-weight: 700;
+}
+h2 {
+    font-size: 36px;
+    letter-spacing: 0px;
+    color: #121417;
+    font-weight: 400;
+}
+h3 {
+    font-size: 28px;
+    letter-spacing: 0px;
+    color: #121417;
+    font-weight: 400;
+}
+h4 {
+    font-size: 24px;
+    letter-spacing: 0px;
+    color: #121417;
+    font-weight: 100;
+}
+h5 {
+    font-size: 20px;
+    letter-spacing: -20px;
+    color: #121417;
+    font-weight: 100;
+}
+h6 {
+    font-size: 16px;
+    color: #121417;
+}
 `;
+
 
 export default GlobalStyle;

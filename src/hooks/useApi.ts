@@ -1,9 +1,6 @@
 import { useCallback, useState } from "react";
 import axios, { Method, AxiosRequestHeaders }  from 'axios';
 
-// interface RequestMethod extends Method {
-
-// }
 interface RequestHeader extends AxiosRequestHeaders {
   someHeader: string;
 }

@@ -1,5 +1,3 @@
-// 로그인여부에따라 Landing 또는 홈페이지 
-import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from 'store';
 

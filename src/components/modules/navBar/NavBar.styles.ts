@@ -38,20 +38,30 @@ export const MidMenu = styled.div`
   a.selected{
     color:red;
   }
-  h6 + h6 {
+  li + li {
     margin-left: 30px;
   }
 `;
 
 export const RightMenu = styled.div`
   /* border: 1px solid blue; */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+`;
+
+export const ProfileMenu = styled(RightMenu)`
+  flex-direction: column;
+  position: relative;
+  align-items: center;
+`
+
+export const Profile = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /* width: 40%; */
   font-size: 16px;
-  cursor: pointer;
-`;
+`
 
 export const BizTitleBox = styled.div`
   display: flex;

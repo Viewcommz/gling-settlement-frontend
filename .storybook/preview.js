@@ -5,18 +5,20 @@ import { withThemesProvider } from "storybook-addon-styled-component-theme";
 import { ThemeProvider } from "styled-components";
 import theme from '../src/styles/theme';
 import { MemoryRouter } from "react-router";
-    
-addDecorator(story => <MemoryRouter initialEntries={['/']}>{story()}</MemoryRouter>); // router
-addDecorator(withThemesProvider([theme]), ThemeProvider); // style ThemeProvider
+import GlobalStyle from "../src/styles/GlobalStyle";
+import '../src/App.css'; 
 
-// export const de
-// corators = [
-//   (Story) => {
-//     <ThemeProvider theme={theme}>
-//       <Story />
-//     </ThemeProvider>
-//   }
-// ]
+addDecorator(story => <MemoryRouter initialEntries={['/']}>{story()}</MemoryRouter>); // router
+// addDecorator(withThemesProvider([theme]), ThemeProvider); // style ThemeProvider
+
+export const decorators = [
+  (Story) => (
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
+      <Story />
+    </ThemeProvider>
+  ),
+];
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },

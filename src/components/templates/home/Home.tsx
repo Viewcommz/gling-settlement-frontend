@@ -1,9 +1,9 @@
-import SectionContainer from "components/templates/SectionLayout";
+import SectionContainer from "components/atomic/layout/SectionLayout";
 
 function Home() {
   return (
     <SectionContainer>
-      <h3>로그인 후 보이는 홈페이지</h3>
+      <h3>홈페이지</h3>
     </SectionContainer>
   )
 }
