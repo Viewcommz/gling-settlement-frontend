@@ -1,10 +1,11 @@
 import Button from "components/atomic/button/Button";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useInput from "hooks/useInput";
 import Input from "components/atomic/input/Input";
 import useApi from "hooks/useApi";
 import { useDispatch } from "react-redux";
 import { loginActions } from "store/login";
+import { middlewareTest } from "store/user";
 import { useNavigate } from "react-router-dom";
 import {
   InputBox,
@@ -18,9 +19,15 @@ import KaKaoLogo from "assets/images/sns-logo/btn_kakao_signin.jpg";
 import NaverLogo from "assets/images/sns-logo/btn_naver_signin.jpg";
 import { userActions } from "store/user";
 
+
+
 const isNotEmpty = (value: string) => value.trim() !== "";
 
 function Signin() {
+  useEffect(()=>{
+    // dispatchEvent(middlewareTest());
+  },[])
+
   const dispatch = useDispatch();
   const { isLoading, error, sendRequest: fetchSigninData } = useApi();
   let navigate = useNavigate();
@@ -125,7 +132,7 @@ function SnsSigninForm({ snsName }: { snsName: string[] }) {
 
   return (
     <SnsSignin className={eng}>
-      <img src={snsLogo} />
+      <img src={snsLogo} alt={eng+'logo'}/>
       <div className="login-text">{kor}로 로그인</div>
     </SnsSignin>
   );

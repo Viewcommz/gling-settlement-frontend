@@ -1,5 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
 
+const test = createAction('test')
 const initialUserState = {
   isPublisher: false,
   sociallogin_provider: null,
@@ -9,6 +10,17 @@ const initialUserState = {
   user_pic_path: '',
   user_status: '',
 }
+// middleware test
+export const middlewareTest = createAsyncThunk("TEST", async () => {
+  const response = await new Promise((resolve,reject) => {
+    setTimeout(()=>{
+      console.log("테스트 중");
+      resolve(true);
+    },5000)
+  })
+  return response;
+})
+
 const userSlice = createSlice({
   name: 'user',
   initialState: initialUserState,
@@ -30,6 +42,12 @@ const userSlice = createSlice({
     deleteUserInfo(state, action) {
      //delete 
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(test, (state, action) => {
+      console.log("state", state)
+      console.log("action", action)
+    })
   }
 })
 
