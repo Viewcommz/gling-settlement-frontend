@@ -48,7 +48,7 @@ const NavBar = () => {
                 <li>
                   <NavLink to="sub">대시보드</NavLink>
                 </li>
-                <li>정산관리</li>
+                <li><CustomNav title="정산관리" to="/settlement" /></li>
                 <li>포트폴리오 관리</li>
                 <li>E-BOOK제작</li>
                 <li>고객센터</li>

@@ -8,6 +8,7 @@ import { Pricing, Guide, Consult } from "pages/landing";
 import Home from "pages/index";
 import Signin from "pages/account/signin/signin";
 import "./App.css";
+import SalesInquiry from "pages/settlement";
 
 function App() {
   const routes: RouteObject[] = [
@@ -27,6 +28,10 @@ function App() {
         {
           path: "/consult",
           element: <Consult />,
+        },
+        {
+          path: "/settlement",
+          element: <SalesInquiry />,
         },
         {
           path: "/signin",

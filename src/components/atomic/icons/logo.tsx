@@ -1,13 +1,20 @@
 import { Fragment } from "react";
 
-export type iconName = "logo" | "menu";
+export type iconNames = "logo" | "menu";
+
+// export enum iconNames {
+//   logo = "logo",
+//   menu = "menu"
+// }
+
+// type test = iconNames.logo | iconNames.menu;
 
 type icon = {
   viewBox: string;
   path: JSX.Element | string;
 };
 
-const IconSet: Record<iconName, icon> = {
+const IconSet: Record<iconNames, icon> = {
   logo: {
     viewBox: "0 0 96.164 45.974",
     path: (
@@ -67,5 +74,7 @@ const IconSet: Record<iconName, icon> = {
     path: "M17 15a1 1 0 110 2H3a1 1 0 110-2h14zm0-4a1 1 0 110 2H3a1 1 0 110-2h14zm0-4a1 1 0 110 2H3a1 1 0 010-2h14zm0-4a1 1 0 110 2H3a1 1 0 010-2h14z",
   },
 };
+
+console.log("내부 아이콘", IconSet)
 
 export { IconSet };
