@@ -70,6 +70,7 @@ function Signin() {
     const checkSignin = (signInData: any) => {
       dispatch(loginActions.login(true));
       dispatch(userActions.setUserInfo(signInData.data.user));
+      console.log("로그인 결과",signInData);
       navigate("/");
     };
 
