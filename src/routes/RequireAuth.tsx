@@ -11,16 +11,16 @@ interface RequireAuthProps {
 interface IAuth {
   [key: string]: {
     [key: string]: string;
-  };
+  }|string;
 }
 // path 별 필요한 auth
 const pageAuth: IAuth = {
-//   "mypage/publisher/dashboard": "publisher",
+  "mypage/publisher/dashboard": "publisher",
   "settlement": {
-    daily: "st_inquiry_daily",
-    monthly: "st_inquiry_monthly",
-    mg: "st_inquiry_mg",
-    etc: "st_inquiry_etc",
+    "daily": "st_inquiry_daily",
+    "monthly": "st_inquiry_monthly",
+    "mg": "st_inquiry_mg",
+    "etc": "st_inquiry_etc",
   },
 };
 
@@ -54,10 +54,15 @@ function RequireAuth({ role, component }: RequireAuthProps) {
     let requireAuth: string | { [key: string]: string; } | null = null;
     let authKey = Object.keys(pageAuth).find((k) => k === path);
     if (authKey) {
-      requireAuth =
-        typeof pageAuth[authKey] === "string"
-          ? pageAuth[authKey]
-          : pageAuth[authKey][query];
+        if (pageAuth[authKey] === "object") {
+            requireAuth =pageAuth[authKey];
+        } else {
+            requireAuth = pageAuth[authKey][query];
+        }
+      
+        // typeof pageAuth[authKey] === "object"
+        //   ? pageAuth[authKey]
+        //   : pageAuth[authKey][query];
     }
     const state = useAsync(validateToken, [])[0];
     console.log("state", state);
@@ -74,8 +79,8 @@ function RequireAuth({ role, component }: RequireAuthProps) {
             RenderCompo.current = <ForbiddenPage/>;
         }
     },[])
-//  다른 방법 써야할듯.
-// st_inquiry_daily 만 막는게 아니라, settlement 페이지 자체를 막고 -> crud
+    //  다른 방법 써야할듯.
+    // st_inquiry_daily 만 막는게 아니라, settlement 페이지 자체를 막고 -> crud
   return (
     <div>
       {RenderCompo.current}
