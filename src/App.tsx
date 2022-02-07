@@ -10,11 +10,20 @@ import Signin from "pages/account/signin/signin";
 import "./App.css";
 import SalesInquiry from "pages/settlement";
 import RequireAuth from "routes/RequireAuth";
+import Error from "pages/Error";
 
+function Test() {
+  return (
+    <div>
+      테스트 컴포
+    </div>
+  )
+}
 function App() {
   const routes: RouteObject[] = [
     {
       path: "/",
+      // element: <NavBar />,
       element: <RequireAuth role={"role test"} component={<NavBar />}></RequireAuth>,
       children: [
         { index: true, element: <Home /> },
@@ -33,12 +42,16 @@ function App() {
         {
           path: "/settlement",
           element: <SalesInquiry />,
+          children: [{
+            path:"/settlement/daily",
+            element: <Test />,
+          }]
         },
         {
           path: "/signin",
           element: <Signin />,
         },
-        { path: "*", element: ()=>(<div>no matched!</div>) }
+        { path: "*", element:  <Error /> }
       ]
     }
   ];

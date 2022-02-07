@@ -2,6 +2,9 @@ import { useEffect } from 'react';
 import FilterBox from "components/modules/filterbox/FilterBox";
 import MenuBar from "components/modules/menuBar/MenuBar";
 import { getAll } from 'api/services/Settlement';
+import Button from 'components/atomic/button/Button';
+import Modal from 'components/modules/modal/Modal';
+import ReactDOM from 'react-dom';
 
 function SalesInquiry() {
   useEffect(()=>{
@@ -18,6 +21,11 @@ function SalesInquiry() {
   }
   return(<div>
     <h2>판매 조회</h2>
+    {
+      // ReactDOM.createPortal(<Modal />,document.getElementById('modal-root')||document.createElement('div'))
+    }
+    
+    <Button label="모달버튼"/>
     <MenuBar menus={['일별 판매 현황','월 정산','선인세','기타 지급금']} applyId={applyIdHandler}/>
     <FilterBox />
     {/* 테이블 */}

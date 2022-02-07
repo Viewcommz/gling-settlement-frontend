@@ -75,6 +75,4 @@ const IconSet: Record<iconNames, icon> = {
   },
 };
 
-console.log("내부 아이콘", IconSet)
-
 export { IconSet };

@@ -97,7 +97,7 @@ function Signin() {
         <InputBox>
           <label htmlFor="email">이메일</label>
           <Input
-            type="email"
+            type="text"
             id="email"
             value={userId}
             placeholder="이메일을 입력해주세요."

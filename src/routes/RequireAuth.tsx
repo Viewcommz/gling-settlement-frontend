@@ -1,79 +1,90 @@
 import api from "api/api";
-import {
-    Route,
-    Navigate,
-    useLocation,
-    Outlet
-} from "react-router-dom";
-
+import useAsync from "hooks/useAsync";
+import { Route, Navigate, useLocation, Outlet, useNavigate } from "react-router-dom";
+import { RootState } from "store";
+import { useSelector } from "react-redux";
+import { useEffect, useRef } from "react";
 interface RequireAuthProps {
-    role: string | string[];
-    component: JSX.Element;
+  role: string | string[];
+  component: JSX.Element;
 }
 interface IAuth {
-    [key: string]: {
-        [key: string]: string
-    }
+  [key: string]: {
+    [key: string]: string;
+  };
 }
 // path 별 필요한 auth
 const pageAuth: IAuth = {
-    "settlement": {
-        "daily": "st_inquiry_daily",
-        "monthly": "st_inquiry_monthly",
-        "mg": "st_inquiry_mg",
-        "etc": "st_inquiry_etc"
-    }
-}
+//   "mypage/publisher/dashboard": "publisher",
+  "settlement": {
+    daily: "st_inquiry_daily",
+    monthly: "st_inquiry_monthly",
+    mg: "st_inquiry_mg",
+    etc: "st_inquiry_etc",
+  },
+};
 
-// 1. 토큰 유효성 검사
-async function validateToken() {
-    try {
-        const apiParams = {
-            pageAuth: "st_inquiry_daily",
-            sid: "HxW1Lab4AB",
-        };
-        const res = await api.post('/api/user/token/select', apiParams);
-        console.log("권한 res", res.data)
-        return res;
-    } catch (err) {
-        console.log("권한 검사 에러", err);
-        // login, publisher , user Store state 초기화
-    }
-}
-function RequireAuth({ role, component }: RequireAuthProps) {
-    const { pathname } = useLocation();
-    let [path, query] = pathname.split("/").splice(1, 2);
-    console.log(" location path ", pathname, path, query);
-    let requireAuth = null;
-    let authKey = Object.keys(pageAuth).find(k => k === path);
-    if (authKey) {
-        requireAuth = typeof pageAuth[authKey] === "object" ?
-                        pageAuth[authKey][query]:
-                        pageAuth[authKey];
-    }
-    console.log("authKey", authKey)
-    console.log("requireAtuh", requireAuth)
-    const res = validateToken();
-    // requireAuth 가 undefined여도 에러없으면 success. 권한이 있으면 hasAuth : 1
-    // 2. 로그인검사
-    // 3. 권한 검사
-    if (requireAuth && !res.status) {
-        return context.error({
-          statusCode: 403,
-          message:
-            "접속하신 페이지의 이용권한이 없습니다.\n관리자에게 문의해주세요.",
-        });
-      }
-
+function ForbiddenPage() {
     return (
         <div>
-            {component}
-            {/* <Outlet/> */}
+            금지페이지
         </div>
-        // <Route>
-        //     {component}
-        // </Route>
     )
+}
+// 1. 토큰 유효성 검사
+async function validateToken() {
+  try {
+    const apiParams = {
+      pageAuth: "st_inquiry_daily",
+      sid: "HxW1Lab4AB",
+    };
+    const res = await api.post("/api/user/token/select", apiParams);
+    console.log("권한 res", res.data.data.hasAuth);
+    return res;
+  } catch (err) {
+    console.log("권한 검사 에러", err);
+    throw new Error('new Error')
+    // login, publisher , user Store state 초기화
+  }
+}
+
+function RequireAuth({ role, component }: RequireAuthProps) {
+    const { pathname } = useLocation();
+    const [path, query] = pathname.split("/").splice(1, 2);
+    let requireAuth: string | { [key: string]: string; } | null = null;
+    let authKey = Object.keys(pageAuth).find((k) => k === path);
+    if (authKey) {
+      requireAuth =
+        typeof pageAuth[authKey] === "string"
+          ? pageAuth[authKey]
+          : pageAuth[authKey][query];
+    }
+    const state = useAsync(validateToken, [])[0];
+    console.log("state", state);
+
+    const navigate = useNavigate();
+    const isLoggedIn = useSelector((state:RootState) => state.login.isLoggedIn);
+    // let RenderCompo:JSX.Element = useRef(component);
+    let RenderCompo =  useRef<JSX.Element | null>(component);
+    useEffect(()=>{
+        if (requireAuth && !isLoggedIn) {
+            navigate("/");
+        }
+        if (requireAuth && !state.data) {
+            RenderCompo.current = <ForbiddenPage/>;
+        }
+    },[])
+//  다른 방법 써야할듯.
+// st_inquiry_daily 만 막는게 아니라, settlement 페이지 자체를 막고 -> crud
+  return (
+    <div>
+      {RenderCompo.current}
+      {/* <Outlet/> */}
+    </div>
+    // <Route>
+    //     {component}
+    // </Route>
+  );
 }
 
 export default RequireAuth;

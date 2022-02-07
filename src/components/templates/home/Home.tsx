@@ -1,4 +1,4 @@
-import SectionContainer from "components/atomic/layout/SectionLayout";
+import SectionContainer from "layout/SectionLayout";
 
 function Home() {
   return (
