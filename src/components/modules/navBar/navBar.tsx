@@ -45,13 +45,11 @@ const NavBar = () => {
           {isLoggedIn ? (
             <Fragment>
               <MidMenu>
-                <li>
-                  <NavLink to="sub">대시보드</NavLink>
-                </li>
-                <li><CustomNav title="정산관리" to="/settlement" /></li>
-                <li>포트폴리오 관리</li>
-                <li>E-BOOK제작</li>
-                <li>고객센터</li>
+                <li><CustomNav title="대시보드" to="dashboard" /></li>
+                <li><CustomNav title="정산관리" to="settlement/daily" /></li>
+                <li><CustomNav title="포트폴리오" to="portfolio" /></li>
+                <li><CustomNav title="E-BOOK제작" to="ebook" /></li>
+                <li><CustomNav title="고객센터" to="support" /></li>
               </MidMenu>
               <ProfileMenu 
                 onClick={profileClickHandler}

@@ -4,7 +4,6 @@ import styled, { css } from "styled-components";
 function MenuBar({ menus, applyId }: { menus: string[], applyId:(idx:number) => void }) {
   const [clickedItemId, setClickedItemId] = useState(0);
   const clickHandler = (idx:number) => {
-    console.log("idx",idx)
     setClickedItemId(idx);
     applyId(idx);
   }

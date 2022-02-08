@@ -18,7 +18,6 @@ const useApi = () => {
   const sendRequest = useCallback(
     async (reqeustConfig:RequestConfig, applyData:(props:object) => void) => {
       setIsLoading(true);
-      console.log("requestConfig", reqeustConfig);
       try {
         const response = await axios({
           method: reqeustConfig.method || 'GET',
@@ -27,7 +26,6 @@ const useApi = () => {
           headers: reqeustConfig.headers || {},
           withCredentials: true,
         })
-        console.log("response", response);
         if (response.data.status === "success") {
           applyData({
             status: "success",

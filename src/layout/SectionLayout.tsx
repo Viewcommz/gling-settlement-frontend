@@ -8,7 +8,6 @@ function SectionLayout({ children }:{children: React.ReactNode}) {
 }
 
 const SectionContainer = styled.div`
-  border: 1px solid red;
   width: 1200px;
   height: auto;
   margin: 0 auto;

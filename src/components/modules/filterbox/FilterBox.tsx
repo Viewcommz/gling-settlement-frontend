@@ -30,8 +30,8 @@ function SearchBar() {
 function FilterBox() {
   return (
     <FilterBoxWrap>
-      <Row label="검색" filterContent={[<SelectBox />, <SearchBar />]} />
-      <Row label="판매일" filterContent={["ㅇㅇ"]} />
+      <Row key="search" label="검색" filterContent={[<SelectBox />, <SearchBar />]} />
+      <Row key="date" label="판매일" filterContent={[<input type="date"/>]} />
     </FilterBoxWrap>
   );
 }
@@ -43,7 +43,6 @@ function Row<T>({
   label: string;
   filterContent: T[];
 }) {
-  console.log("filter", filterContent);
   return (
     <RowWrap>
       <Label>{label}</Label>

@@ -42,24 +42,22 @@ function reducer(state: AsyncState = initialState, action: AsyncAction):AsyncSta
   }
 }
 
-function useAsync(callback:any, deps=[]):[AsyncState,() => Promise<void>] {  
+function useAsync(callback:any, deps:any, props?:any):AsyncState {  
   const [state, dispatch] = useReducer(reducer, initialState);
   const fetchData = async () => {
     dispatch({ type : 'LOADING' });
     try {
-      const data = await callback();
-      console.log("들어옴",data)
+      const data = await callback(props);
       dispatch({ type : 'SUCCESS', data : data.data });
     } catch (err) {
       dispatch({ type : 'ERROR', error:err})
     }
   }
-
-  useEffect(() => {
+  useEffect(()=>{
     fetchData();
-  },deps);
+  },deps)
 
-  return [state, fetchData];
+  return state;
 }
 
 export default useAsync;

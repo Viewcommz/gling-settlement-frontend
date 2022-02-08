@@ -14,7 +14,6 @@ const initialUserState = {
 export const middlewareTest = createAsyncThunk("TEST", async () => {
   const response = await new Promise((resolve,reject) => {
     setTimeout(()=>{
-      console.log("테스트 중");
       resolve(true);
     },5000)
   })

@@ -1,17 +1,46 @@
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import ModalServcie from "./ModalService";
 interface ModalProps {
   title: string;
   message: string;
-  onConfirm: React.MouseEvent;
+  onConfirm: React.MouseEventHandler;
 }
-// header / 
-// x버튼 적용버튼 
-//각 섹션에 children 추가할수있어야함
-// 기본 모달 -> 의사 확인용 1개, 기타 기능 추가?
-function Modal({title, message, onConfirm}: ModalProps) {
+
+function Backdrop({onClose}:{onClose:React.MouseEventHandler}) {
+  return <div onClick={onClose}></div>
+}
+
+interface ModalType {
+  component: JSX.Element;
+  props: object;
+}
+function Modal({ title, message, onConfirm }: ModalProps) {
+  const [modal, setModal] = useState<ModalType|{}>({});
+  // useEffect(()=> {
+  //   ModalServcie.on('open', (({ component, props })) => {
+  //     setModal({
+  //       component
+  //       props,
+  //       close: () => {
+  //         setModal({});
+  //       }
+  //     })
+  //   })
+  // },[]);
+
+  const ModalComponent = (modal as ModalType).component ? (modal as ModalType).component : null;
   return (
     <ModalContainer>
-      모달창임.
+      {
+        // ModalComponent && (
+        //   <ModalComponent 
+        //     { ...modal.props }
+        //     close={ modal.close }
+        //     className={ ModalComponent ? 'd-block' : '' }
+        //   />
+        // )
+      }
     </ModalContainer>
   );
 }

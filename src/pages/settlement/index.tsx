@@ -1,35 +1,45 @@
-import { useEffect } from 'react';
 import FilterBox from "components/modules/filterbox/FilterBox";
 import MenuBar from "components/modules/menuBar/MenuBar";
-import { getAll } from 'api/services/Settlement';
 import Button from 'components/atomic/button/Button';
 import Modal from 'components/modules/modal/Modal';
-import ReactDOM from 'react-dom';
+import SectionLayout from 'layout/SectionLayout';
+import SettlementDailyService from 'api/services/settlement/daily';
+import useAsync from 'hooks/useAsync';
+
+let dummyData = {
+  author_name: "",
+  endDate: "20220228",
+  name: "",
+  selectedPlatform: [25, 21, 3, 4],
+  series_name: "",
+  startDate: "20211201"
+}
+const applyIdHandler = (idx: number) => {
+  console.log("부모 컴포 실행됨", idx);
+}
 
 function SalesInquiry() {
-  useEffect(()=>{
-    // 화면 렌더링 시 데이터 가져와야 + 필터 바뀔 떄마다 데이터 요청?
-    // api 요청
-    // api.getDailyData() api.getMonthlyData(options) 이런식으로 자동으로 뜰 수 있게하면..?
-    console.log("마운트")
-    console.log("데이터 : ",getAll());
-  },[]);
-
-
-  const applyIdHandler = (idx:number) => {
-    console.log("부모 컴포 실행됨",idx);
+  let { loading, data, error } = useAsync(SettlementDailyService.getDaily, [], dummyData);
+  if (loading) return <SectionLayout>"Loading..."</SectionLayout>;
+  if (data) {
+    return (
+      <SectionLayout>
+        <h2>판매 조회</h2>
+        {
+          // ReactDOM.createPortal(<Modal />,document.getElementById('modal-root')||document.createElement('div'))
+        }
+        <Modal title="모달타이틀" message='모달메세지' onConfirm={() => { console.log("클릭") }} />
+        <MenuBar menus={['일별 판매 현황', '월 정산', '선인세', '기타 지급금']} applyId={applyIdHandler} />
+        <FilterBox />
+        {
+          data.data.result.map((item: any) => <li>{`${item.id}, ${item.author_name}`}</li>)
+        }
+        {/* 테이블 */}
+        <Button label="모달버튼" />
+      </SectionLayout>
+    )
   }
-  return(<div>
-    <h2>판매 조회</h2>
-    {
-      // ReactDOM.createPortal(<Modal />,document.getElementById('modal-root')||document.createElement('div'))
-    }
-    
-    <Button label="모달버튼"/>
-    <MenuBar menus={['일별 판매 현황','월 정산','선인세','기타 지급금']} applyId={applyIdHandler}/>
-    <FilterBox />
-    {/* 테이블 */}
-  </div>)
+  return <SectionLayout>"Error..."</SectionLayout>;
 }
 
 

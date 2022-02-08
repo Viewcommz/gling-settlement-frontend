@@ -4,6 +4,7 @@ import { Route, Navigate, useLocation, Outlet, useNavigate } from "react-router-
 import { RootState } from "store";
 import { useSelector } from "react-redux";
 import { useEffect, useRef } from "react";
+import SectionLayout from "layout/SectionLayout";
 interface RequireAuthProps {
   role: string | string[];
   component: JSX.Element;
@@ -11,7 +12,7 @@ interface RequireAuthProps {
 interface IAuth {
   [key: string]: {
     [key: string]: string;
-  }|string;
+  } | any;
 }
 // path 별 필요한 auth
 const pageAuth: IAuth = {
@@ -25,11 +26,11 @@ const pageAuth: IAuth = {
 };
 
 function ForbiddenPage() {
-    return (
-        <div>
-            금지페이지
-        </div>
-    )
+  return (
+    <SectionLayout>
+      접근 권한이 없습니다.
+    </SectionLayout>
+  )
 }
 // 1. 토큰 유효성 검사
 async function validateToken() {
@@ -38,8 +39,7 @@ async function validateToken() {
       pageAuth: "st_inquiry_daily",
       sid: "HxW1Lab4AB",
     };
-    const res = await api.post("/api/user/token/select", apiParams);
-    console.log("권한 res", res.data.data.hasAuth);
+    const res = await api.post("user/token/select", apiParams);
     return res;
   } catch (err) {
     console.log("권한 검사 에러", err);
@@ -49,46 +49,43 @@ async function validateToken() {
 }
 
 function RequireAuth({ role, component }: RequireAuthProps) {
-    const { pathname } = useLocation();
-    const [path, query] = pathname.split("/").splice(1, 2);
-    let requireAuth: string | { [key: string]: string; } | null = null;
-    let authKey = Object.keys(pageAuth).find((k) => k === path);
-    if (authKey) {
-        if (pageAuth[authKey] === "object") {
-            requireAuth =pageAuth[authKey];
-        } else {
-            requireAuth = pageAuth[authKey][query];
-        }
-      
-        // typeof pageAuth[authKey] === "object"
-        //   ? pageAuth[authKey]
-        //   : pageAuth[authKey][query];
+  const { pathname } = useLocation();
+  const [path, query] = pathname.split("/").splice(1, 2);
+  let requireAuth: string | { [key: string]: string; } | null = null;
+  //  다른 방법 써야할듯.
+  let authKey = Object.keys(pageAuth).find((k) => k === path); 
+  if (authKey) {
+    if (pageAuth[authKey] === "object") {
+      requireAuth = pageAuth[authKey];
+    } else {
+      requireAuth = pageAuth[authKey][query];
     }
-    const state = useAsync(validateToken, [])[0];
-    console.log("state", state);
+  }
 
-    const navigate = useNavigate();
-    const isLoggedIn = useSelector((state:RootState) => state.login.isLoggedIn);
-    // let RenderCompo:JSX.Element = useRef(component);
-    let RenderCompo =  useRef<JSX.Element | null>(component);
-    useEffect(()=>{
-        if (requireAuth && !isLoggedIn) {
-            navigate("/");
-        }
-        if (requireAuth && !state.data) {
-            RenderCompo.current = <ForbiddenPage/>;
-        }
-    },[])
-    //  다른 방법 써야할듯.
-    // st_inquiry_daily 만 막는게 아니라, settlement 페이지 자체를 막고 -> crud
+  // 로그인 확인
+  const navigate = useNavigate();
+  const isLoggedIn = useSelector((state: RootState) => state.login.isLoggedIn);
+  useEffect(() => {
+    if (requireAuth && !isLoggedIn) {
+      navigate("/signin");
+    }
+  }, [isLoggedIn])
+
+  // 권한 확인
+  const { loading, data, error } = useAsync(validateToken, [pathname]);
+  let RenderCompo = useRef<JSX.Element | null>(component);
+  if (data) {
+    if (requireAuth && !data.data.hasAuth) {
+      RenderCompo.current = <ForbiddenPage />;
+    } else {
+      RenderCompo.current = component
+    }
+  }
+
   return (
     <div>
       {RenderCompo.current}
-      {/* <Outlet/> */}
     </div>
-    // <Route>
-    //     {component}
-    // </Route>
   );
 }
 

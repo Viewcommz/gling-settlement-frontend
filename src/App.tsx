@@ -11,6 +11,10 @@ import "./App.css";
 import SalesInquiry from "pages/settlement";
 import RequireAuth from "routes/RequireAuth";
 import Error from "pages/Error";
+import Dashboard from "pages/dashboard";
+import Ebook from "pages/ebook";
+import Portfolio from "pages/portfolio";
+import Support from "pages/support";
 
 function Test() {
   return (
@@ -23,7 +27,6 @@ function App() {
   const routes: RouteObject[] = [
     {
       path: "/",
-      // element: <NavBar />,
       element: <RequireAuth role={"role test"} component={<NavBar />}></RequireAuth>,
       children: [
         { index: true, element: <Home /> },
@@ -40,12 +43,28 @@ function App() {
           element: <Consult />,
         },
         {
-          path: "/settlement",
+          path: "/dashboard",
+          element: <Dashboard />,
+        },
+        {
+          path: "/settlement/daily",
           element: <SalesInquiry />,
           children: [{
             path:"/settlement/daily",
             element: <Test />,
           }]
+        },
+        {
+          path: "/portfolio",
+          element: <Portfolio />,
+        },
+        {
+          path: "/ebook",
+          element: <Ebook />,
+        },
+        {
+          path: "/support",
+          element: <Support />,
         },
         {
           path: "/signin",

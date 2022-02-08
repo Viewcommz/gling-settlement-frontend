@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError, AxiosInstance } from "axios";
 
-const serverUrl = process.env.NODE_ENV == "production" ? "https://api.gling.co.kr" : "";
+const serverUrl = process.env.NODE_ENV == "production" ? "https://api.gling.co.kr" : "/api/";
 const s3Url = "https://s3.ap-northeast-2.amazonaws.com/gling.co.kr"
 
 // interface Return<Data, Error> extends Pick
@@ -13,7 +13,6 @@ class Api {
         let api = axios.create({
             baseURL: serverUrl,
             withCredentials: true,
-            timeout: 1000,
         });
         api.interceptors.response.use(this.handleSuccess, this.handleError)
         this.api = api;
@@ -40,7 +39,6 @@ class Api {
         console.log("리다이렉트");
         document.location = path;
     }
-
   
     get(path:string, callback:any) {
         return this.api.get(path).then(
