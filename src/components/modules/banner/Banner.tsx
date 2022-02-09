@@ -1,7 +1,5 @@
+import styled from "styled-components";
 import SimpleSlider from "../slider/SimpleSlider";
-import {
-  BannerContainer
-} from "./Banner.styles";
 
 function Banner() {
   return <BannerContainer>
@@ -10,5 +8,10 @@ function Banner() {
   </BannerContainer>;
 }
 
+export const BannerContainer = styled.div`
+  width: 100vw;
+  height: 800px;
+  background-color: ${({theme}) => theme.colors.blue500};
+`
 
 export default Banner;
