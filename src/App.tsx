@@ -16,79 +16,67 @@ import Ebook from "pages/ebook";
 import Portfolio from "pages/portfolio";
 import Support from "pages/support";
 
-function Test() {
-  return (
-    <div>
-      테스트 컴포
-    </div>
-  )
-}
 function App() {
-  const routes: RouteObject[] = [
-    {
-      path: "/",
-      element: <RequireAuth role={"role test"} component={<NavBar />}></RequireAuth>,
-      children: [
-        { index: true, element: <Home /> },
+    const routes: RouteObject[] = [
         {
-          path: "/pricing",
-          element: <Pricing />,
+            path: "/",
+            element: <RequireAuth />,
+            children: [
+                { index: true, element: <Home /> },
+                {
+                    path: "/pricing",
+                    element: <Pricing />,
+                },
+                {
+                    path: "/guide",
+                    element: <Guide />,
+                },
+                {
+                    path: "/consult",
+                    element: <Consult />,
+                },
+                {
+                    path: "/dashboard",
+                    element: <Dashboard />,
+                },
+                {
+                    path: "/settlement/:type",
+                    element: <SalesInquiry />,
+                },
+                {
+                    path: "/portfolio",
+                    element: <Portfolio />,
+                },
+                {
+                    path: "/ebook",
+                    element: <Ebook />,
+                },
+                {
+                    path: "/support",
+                    element: <Support />,
+                },
+                {
+                    path: "/signin",
+                    element: <Signin />,
+                },
+                { path: "*", element: <Error /> },
+            ],
         },
-        {
-          path: "/guide",
-          element: <Guide />,
-        },
-        {
-          path: "/consult",
-          element: <Consult />,
-        },
-        {
-          path: "/dashboard",
-          element: <Dashboard />,
-        },
-        {
-          path: "/settlement/daily",
-          element: <SalesInquiry />,
-          children: [{
-            path:"/settlement/daily",
-            element: <Test />,
-          }]
-        },
-        {
-          path: "/portfolio",
-          element: <Portfolio />,
-        },
-        {
-          path: "/ebook",
-          element: <Ebook />,
-        },
-        {
-          path: "/support",
-          element: <Support />,
-        },
-        {
-          path: "/signin",
-          element: <Signin />,
-        },
-        { path: "*", element:  <Error /> }
-      ]
-    }
-  ];
-  let element = useRoutes(routes);
-  
-  return (
-    <Fragment>
-      <GlobalStyle />
-      <ThemeProvider theme={theme}>
-        {element}
-      </ThemeProvider>
-    </Fragment>
-  );
+    ];
+    let element = useRoutes(routes);
+
+    return (
+        <Fragment>
+            <GlobalStyle />
+            <ThemeProvider theme={theme}>
+                <NavBar />
+                {element}
+            </ThemeProvider>
+        </Fragment>
+    );
 }
 
 export default App;
-
-
 
 // export const admin = [
 //   { path: "/createUser", name: "Create User", component: CreateUser},
