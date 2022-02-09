@@ -5,6 +5,10 @@ import Modal from "components/modules/modal/Modal";
 import SectionLayout from "layout/SectionLayout";
 import SettlementDailyService from "api/services/settlement/daily";
 import useAsync from "hooks/useAsync";
+import { useEffect } from "react";
+
+import { useSelector, useDispatch } from "react-redux";
+import { fetchDailyDatas } from "store/settlement/daily";
 
 let dummyData = {
     author_name: "",
@@ -19,6 +23,11 @@ const applyIdHandler = (idx: number) => {
 };
 
 function SalesInquiry() {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        // dispatch(fetchDailyDatas(dummyData));
+    }, [dispatch]);
+
     let { loading, data, error } = useAsync(SettlementDailyService.getDaily, [], dummyData);
     // if (loading) return <SectionLayout>"Loading..."</SectionLayout>;
     console.log("sales data", data);
