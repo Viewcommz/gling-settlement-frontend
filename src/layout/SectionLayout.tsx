@@ -11,6 +11,7 @@ const SectionContainer = styled.div`
   width: 1200px;
   height: auto;
   margin: 0 auto;
+  padding: 30px 0;
 `
 
 export default SectionLayout;

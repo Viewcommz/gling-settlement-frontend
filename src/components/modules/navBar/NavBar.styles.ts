@@ -6,7 +6,7 @@ export const HeaderContainer = styled.div`
   height: 72px;
   position: relative;
   left: calc(50% - 50vw);
-  /* border: 1px solid black; */
+  border-bottom: 1px solid #ddd; 
 `;
 
 export const HeaderContents = styled.div`
