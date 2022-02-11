@@ -2,17 +2,15 @@ import FilterBox from "components/modules/filterbox/FilterBox";
 import MenuBar from "components/modules/menuBar/MenuBar";
 import Button from "components/atomic/button/Button";
 import Modal from "components/modules/modal/Modal";
-import SectionLayout from "layout/SectionLayout";
+import SectionLayout from "components/templates/SectionLayout";
 import SettlementDailyService from "api/services/settlement/daily";
 import useAsync from "hooks/useAsync";
 import { useEffect } from "react";
 
-import { useSelector, useDispatch } from "react-redux";
-import { fetchDailyDatas } from "store/settlement/daily";
-
+import { useDispatch } from "react-redux";
+import { fetchDailyDatas } from "./inquirySlice";
 import { DailyInquiryProps } from "api/services/settlement/daily";
-
-import { Dispatch } from "store/index";
+import { Dispatch } from "app/store";
 
 let dummyData: DailyInquiryProps = {
     author_name: "",

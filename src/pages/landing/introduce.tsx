@@ -1,7 +1,7 @@
+import SectionLayout from "components/templates/SectionLayout";
+
 function Introduce() {
-  return <div>
-    소개페이지
-  </div>;
+    return <SectionLayout>소개페이지</SectionLayout>;
 }
 
 export default Introduce;

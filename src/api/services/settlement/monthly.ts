@@ -1,26 +1,24 @@
-import api from "api/api";
+import API from "api/instance";
 
-interface DailyInquiryProps {
-    author_name: string
-    endDate: string
-    name: string
-    selectedPlatform: number[]
-    series_name: string
-    startDate: string
+export interface DailyInquiryProps {
+    author_name: string;
+    endDate: string;
+    name: string;
+    selectedPlatform: number[];
+    series_name: string;
+    startDate: string;
 }
-function createDaily(){}
-async function getDaily(props:DailyInquiryProps) {
-    let res = await api.post('settlement/salesInquiry/daily/publisher/select',props);
-    return res;
+function createDaily() {}
+function getDaily(props: DailyInquiryProps) {
+    return API.post("settlement/salesInquiry/daily/publisher/select", props);
 }
 
-function updateDaily(){}
-
+function updateDaily() {}
 
 const SettlementDailyService = {
     createDaily,
     getDaily,
     updateDaily,
-}
+};
 
 export default SettlementDailyService;

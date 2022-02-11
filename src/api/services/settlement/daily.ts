@@ -1,4 +1,4 @@
-import api from "api/api";
+import API from "api/instance";
 
 export interface DailyInquiryProps {
     author_name: string;
@@ -10,8 +10,7 @@ export interface DailyInquiryProps {
 }
 function createDaily() {}
 function getDaily(props: DailyInquiryProps) {
-    let res = api.post("settlement/salesInquiry/daily/publisher/select", props);
-    return res;
+    return API.post("settlement/salesInquiry/daily/publisher/select", props);
 }
 
 function updateDaily() {}
