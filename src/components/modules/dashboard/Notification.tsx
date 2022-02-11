@@ -4,9 +4,13 @@ const Notification = (props: NotifiCationProps) => {
     return (
         <StyledNotification>
             {props.notificationData.map(n => (
-                <StyledLi>
+                <StyledLi key={props.notificationData.indexOf(n)}>
                     <NotificationTitle>{n.title}</NotificationTitle>
-                    <NotificationType>{n.type}</NotificationType>
+                    <NotificationType 
+                        color={n.color == "#00D422" ? "#121417" : "#FFFFFF"}
+                        backgroundColor={n.color}
+                    >{n.type}
+                    </NotificationType>
                 </StyledLi>
             ))}
         </StyledNotification>
@@ -18,33 +22,44 @@ interface NotifiCationProps {
 }
 
 const StyledNotification = styled.ul`
-    height: 160px;
-    border: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 180px;
+
 `
 
 const StyledLi = styled.li`
     display: flex;
-    height: 53px;
-    padding: 14px 10px;
-    border: 1px solid #ddd;
+    align-items: center;
+    height: 55px;
+    border-radius: 5px;
     background-color: #F8F9FA;
 `
 
 const NotificationTitle = styled.div`
+    padding-left: 10px;
     font-size: 12px;
-    padding-top: 5px;
+    line-height: 16px;
     width: 180px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 `
 
-const NotificationType = styled.div`
-    font-size: 7px;
-    width: 70px;
+const NotificationType = styled.div<{ backgroundColor: string }>`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 400;
+    width: 80px;
     height: 22px;
-    padding: 5px 0;
     margin-left: 10px;
-    text-align: center;
     border-radius: 5px;
-    background-color: red;
+    background-color: ${(props) => props.backgroundColor};
+    color: ${(props) => props.color}
 `
 
 export default Notification;

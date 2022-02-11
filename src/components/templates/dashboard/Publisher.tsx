@@ -1,48 +1,56 @@
 import styled from "styled-components";
-import Title from "components/modules/dashboard/Title";
-import SummaryCard from "components/modules/dashboard/SummaryCard";
-import SalesAnalysis from "components/modules/dashboard/SalesAnalysis";
-import Calendar from "components/modules/dashboard/Calendar";
-import Notification from "components/modules/dashboard/Notification"
+
+import {
+    Title, SummaryCard, SalesAnalysis, Calendar, Notification, SoaringSalesChart, 
+    SoaringSalesTable, LaunchingContentTable, LaunchingContentChart, DailyContentAnalysisChart,
+    DailyContentAnalysisTable, DailyPlatformAnalysis, EachPlatformDailyRank, EachPlatformSettlement
+} from "components/modules/dashboard";
 
 const Publisher = (props: PublisherProps) => {
     const summaryCardProps = [
-        { subtitle: "26일", amount: 15725983, desc: "전일 대비 -30%", rate: -30 },
-        { subtitle: "25일", amount: 34211589, desc: "", rate: null },
-        { subtitle: "당월 예상수입", amount: 441485118, desc: "전일 대비 -30%", rate: -30 },
-        { subtitle: "전월 정산금 총계", amount: 251222454, desc: "소진 8,750,000원", rate: -8750000 },
+        { type: "26일", amount: "15,725,983원", desc: "전일 대비 -30%", rate: -30 },
+        { type: "25일", amount: "34,211,589원", desc: "", rate: 0 },
+        { type: "당월 예상수입", amount: "441,485,118원", desc: "저번달 대비 +46%", rate: 46 },
+        { type: "전월 정산금 총계", amount: "251,222,454원", desc: "소진 8,750,000원", rate: -8750000 },
     ]
     const salesAnalysisProps = {
         series: [
-        {
-            name: 'TEAM A',
-            type: 'column',
-            data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30]
-        }, {
-            name: 'TEAM B',
-            type: 'area',
-            data: [44, 55, 41, 67, 22, 43, 21, 41, 56, 27, 43]
-        }, {
-            name: 'TEAM C',
-            type: 'line',
-            data: [30, 25, 36, 30, 45, 35, 64, 52, 59, 36, 39]
-        }],
+            {
+                name: '이번주',
+                type: 'column',
+                data: [22222222, 33333333, 44444444, 55555555, 66666666, 77777777, 88888888]
+            }, 
+            {
+                name: '지난주',
+                type: 'line',
+                data: [11111111, 22222222, 33333333, 44444444, 55555555, 66666666, 77777777]
+            }
+        ],
         options: {
             chart: {
                 height: 350,
                 type: 'line',
                 stacked: false,
+                foreColor: "#868E96"
             },
+            colors: ["#00BCD4", "#FF3E36"],
             stroke: {
-                width: [0, 2, 5],
+                width: [0, 4, 5],
                 curve: 'smooth'
             },
             plotOptions: {
                 bar: {
-                    columnWidth: '50%'
+                    columnWidth: '38%',
+                    borderRadius: 25,
+                    colors: {
+                        ranges: [
+                            { from: 0, to: 6, color: "#E0F7FA"},
+                            { from: 7, to: 8, color: "#00BCD4"}
+                        ],
+                        // backgroundBarColors: ["#E0F7FA", "#00BCD4"],
+                    }
                 }
             },
-
             fill: {
                 opacity: [0.85, 0.25, 1],
                 gradient: {
@@ -54,18 +62,18 @@ const Publisher = (props: PublisherProps) => {
                     stops: [0, 100, 100, 100]
                 }
             },
-            labels: ['01/01/2003', '02/01/2003', '03/01/2003', '04/01/2003', '05/01/2003', '06/01/2003', '07/01/2003',
-                '08/01/2003', '09/01/2003', '10/01/2003', '11/01/2003'
+            labels: ['10/21', '10/22', '10/23',
+                '10/24', '10/25', '10/26', '10/27'
             ],
             markers: {
                 size: 0
             },
             xaxis: {
-                type: 'datetime'
+                type: 'string'
             },
             yaxis: {
                 title: {
-                    text: 'Points',
+                    text: '',
                 },
                 min: 0
             },
@@ -75,7 +83,7 @@ const Publisher = (props: PublisherProps) => {
                 y: {
                     formatter: function (y: any) {
                         if (typeof y !== "undefined") {
-                            return y.toFixed(0) + " points";
+                            return y.toFixed(0).replace(/(\d)(?=(?:\d{3})+(?!\d))/g, "$1,") + " 원";
                         }
                         return y;
 
@@ -85,9 +93,9 @@ const Publisher = (props: PublisherProps) => {
         },
     };
     const notificationProps = [
-        { type: "공지사항", title: "업데이트 공지사항이 있습니다.", color: "red" },
-        { type: "런칭, 프로모션", title: "리디북스 마크다운이 진행중입니다!", color: "green" },
-        { type: "정산, 선인세", title: "이번 달 정산일은 12월 31일 입니다.", color: "blue" },
+        { type: "공지사항", title: "업데이트 공지사항이 있습니다.", color: "#FF3E36" },
+        { type: "런칭, 프로모션", title: "리디북스 마크다운이 진행중입니다!", color: "#00D422" },
+        { type: "정산, 선인세", title: "이번 달 정산일은 12월 31일 입니다.", color: "#0077FF" },
     ]
     return (
         <div>
@@ -100,6 +108,21 @@ const Publisher = (props: PublisherProps) => {
                     <Notification notificationData={notificationProps}/>
                 </FullWidthDiv>
             </FlexDiv>
+            <FlexDiv>
+                <SoaringSalesChart />
+                <SoaringSalesTable />
+            </FlexDiv>
+            <FlexDiv>
+                <LaunchingContentChart />
+                <LaunchingContentTable />
+            </FlexDiv>
+            <FlexDiv>
+                <DailyContentAnalysisChart />
+                <DailyContentAnalysisTable />
+            </FlexDiv>
+            <DailyPlatformAnalysis />
+            <EachPlatformDailyRank />
+            <EachPlatformSettlement />
         </div>
     )
 }
@@ -110,6 +133,8 @@ interface PublisherProps {
 
 const FlexDiv = styled.div`
     display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
 `
 
 const FullWidthDiv = styled.div`

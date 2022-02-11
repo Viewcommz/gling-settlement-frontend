@@ -2,8 +2,6 @@ import styled from "styled-components";
 import ApexCharts from 'react-apexcharts';
 
 const SalesAnalysis = (props: SalesAnalysisProps) => {
-    console.log(props);
-
     return (
         <StyledChart>
             판매 금액 분석
@@ -30,11 +28,11 @@ interface ChartOptions {
 const StyledChart = styled.div`
     width: 895px;
     height: 500px;
+    font-weight: 500;
+    font-size: 18px;
     border: 1px solid #ddd;
     border-radius: 8px;
-    margin-right: 25px;
     padding: 20px;
-    font-weight: 500;
 `
 
 export default SalesAnalysis;

@@ -3,7 +3,7 @@ import moment from "moment";
 
 function Title(props: TitleProps) {
     const days = ["일", "월", "화", "수", "목", "금", "토"]
-    const yesterday = moment().subtract(1, "days")
+    const yesterday = moment();
     const dateFormat = yesterday.format("YYYY년 MM월 DD일");
     const day = days[Number(yesterday.format("e"))];
     return (
@@ -19,9 +19,9 @@ interface TitleProps {
 }
 
 const StyledTitle = styled.div`
-    font-weight: 500;
-    font-size: 22px;
-    line-height: 28px;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 30.05px;
     margin-bottom: 20px;
 `
 
