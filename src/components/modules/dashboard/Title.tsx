@@ -26,3 +26,4 @@ const StyledTitle = styled.div`
 `
 
 export default Title;
+
