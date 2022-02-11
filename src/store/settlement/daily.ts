@@ -1,17 +1,18 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import SettlementDailyService from "api/services/settlement/daily";
 import axios, { AxiosError } from "axios";
+import { DailyInquiryProps } from "api/services/settlement/daily";
 
 interface ServerError {
     errorMessage: string;
 }
 const name = "settlement/daily";
 
-export const fetchDailyDatas = createAsyncThunk(`${name}/fetchDailyDatas`, async (apiParams: any, thunkAPI) => {
+export const fetchDailyDatas = createAsyncThunk(`${name}/fetchDailyDatas`, async (apiParams: DailyInquiryProps, thunkAPI) => {
     try {
         let data = await SettlementDailyService.getDaily(apiParams);
         console.log("정산 일판매 데이터", data);
-        return data;
+        return data.data;
     } catch (err) {
         if (axios.isAxiosError(err)) {
             const serverError = err as AxiosError<ServerError>;
@@ -50,12 +51,12 @@ export const dailySlice = createSlice({
             console.log("호출전", fetchDailyDatas);
         });
         builder.addCase(fetchDailyDatas.fulfilled, (state, action) => {
-            state.loading = false;
             console.log("action.payload", action.payload);
+            state.loading = true;
         });
         builder.addCase(fetchDailyDatas.rejected, (state, action) => {
             console.log("실패");
-            state.loading = false;
+            state.loading = true;
         });
     },
 });

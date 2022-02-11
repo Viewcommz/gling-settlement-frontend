@@ -10,7 +10,11 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchDailyDatas } from "store/settlement/daily";
 
-let dummyData = {
+import { DailyInquiryProps } from "api/services/settlement/daily";
+
+import { Dispatch } from "store/index";
+
+let dummyData: DailyInquiryProps = {
     author_name: "",
     endDate: "20220228",
     name: "",
@@ -23,9 +27,9 @@ const applyIdHandler = (idx: number) => {
 };
 
 function SalesInquiry() {
-    const dispatch = useDispatch();
+    const dispatch: Dispatch = useDispatch();
     useEffect(() => {
-        // dispatch(fetchDailyDatas(dummyData));
+        dispatch(fetchDailyDatas(dummyData));
     }, [dispatch]);
 
     let { loading, data, error } = useAsync(SettlementDailyService.getDaily, [], dummyData);
