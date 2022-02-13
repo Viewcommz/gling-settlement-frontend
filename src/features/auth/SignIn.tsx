@@ -19,8 +19,8 @@ import { signInActions } from "./signInSlice";
 const isNotEmpty = (value: string) => value.trim() !== "";
 
 function Signin() {
-    let user = useSelector((state: RootState) => state.auth.user);
-
+    // let user = useSelector((state: RootState) => state.auth.user);
+    // data loading error 이런식으로 ㅂ다아오게 state.auth.
     const dispatch: Dispatch = useDispatch();
     const { isLoading, error, sendRequest: fetchSigninData } = useApi();
     let navigate = useNavigate();
@@ -50,9 +50,7 @@ function Signin() {
 
     function submitHandler(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
-        if (!formValid) {
-            return;
-        }
+        if (!formValid) return;
 
         const apiData = {
             email: userId,
@@ -61,24 +59,13 @@ function Signin() {
         };
 
         dispatch(getAuth(apiData));
-        if (user) {
-            console.log("user", user);
-            dispatch(signInActions.signIn());
-            navigate("/");
-        }
-        // const checkSignin = (signInData: any) => {
-        //     dispatch(loginActions.login(true));
-        //     dispatch(userActions.setUserInfo(signInData.data.user));
-        // };
-
-        // fetchSigninData(
-        //     {
-        //         method: "POST",
-        //         url: "user/local/login",
-        //         data: apiData,
-        //     },
-        //     checkSignin,
-        // );
+        // if (user) {
+        //     console.log("user", user);
+        //     dispatch(signInActions.signIn());
+        //     navigate("/");
+        // } else {
+        //     alert("잘못된 정보");
+        // }
 
         resetUserId();
         resetUserPWD();
