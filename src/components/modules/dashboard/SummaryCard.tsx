@@ -36,7 +36,7 @@ const StyledUl = styled.ul`
     margin-bottom: 30px;
     li {
         &:first-child {
-            border: 3px solid #00BCD4;
+            border: 2px solid #00BCD4;
         }
     }
 `
