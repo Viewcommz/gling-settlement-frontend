@@ -48,7 +48,7 @@ function Signin() {
         formValid = true;
     }
 
-    function submitHandler(event: React.FormEvent<HTMLFormElement>) {
+    async function submitHandler(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         if (!formValid) return;
 
@@ -58,15 +58,25 @@ function Signin() {
             sid: "HxW1Lab4AB",
         };
 
-        dispatch(getAuth(apiData))
-            .unwrap()
-            .then((response) => {
-                if (response.status === "success") {
-                    navigate("/");
-                } else {
-                    alert("로그인 정보를 확인해주세요.");
-                }
-            });
+        try {
+            const { status, data, message } = await dispatch(getAuth(apiData)).unwrap();
+            if (status === "success") {
+                navigate("/");
+            } else {
+                alert("로그인 정보를 확인해주세요.");
+            }
+        } catch (err) {
+            console.log("컴포넌트 에러", err);
+        }
+        // dispatch(getAuth(apiData))
+        //     .unwrap()
+        //     .then((response) => {
+        //         if (response.status === "success") {
+        //             navigate("/");
+        //         } else {
+        //             alert("로그인 정보를 확인해주세요.");
+        //         }
+        //     });
 
         resetUserId();
         resetUserPWD();
