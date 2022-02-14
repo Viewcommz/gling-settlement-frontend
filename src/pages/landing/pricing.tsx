@@ -1,8 +1,7 @@
+import SectionLayout from "components/templates/SectionLayout";
 
-export default function Pricing() {
-  return (
-    <div>
-      요금 안내 페이지
-    </div>
-  )
+function Pricing() {
+    return <SectionLayout>요금안내페이지</SectionLayout>;
 }
+
+export default Pricing;

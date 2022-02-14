@@ -1,12 +1,14 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 
-import loginReducer from "./login";
-import userReducer from "./user";
-import dailyReducer from "./settlement/daily";
+import authReducer from "features/auth/authSlice";
+import signInReducer from "features/auth/signInSlice";
+import userReducer from "features/user/userSlice";
+import dailyReducer from "features/sales-inquiry/inquirySlice";
 import logger from "redux-logger";
 
 export const rootReducer = combineReducers({
-    login: loginReducer,
+    auth: authReducer,
+    signIn: signInReducer,
     user: userReducer,
     daily: dailyReducer,
 });

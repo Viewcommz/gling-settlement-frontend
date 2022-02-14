@@ -1,9 +1,7 @@
-import SectionLayout from "layout/SectionLayout";
+import SectionLayout from "components/templates/SectionLayout";
 
 function Ebook() {
-    return (
-        <SectionLayout>E-Book 페이지</SectionLayout>
-    )
+    return <SectionLayout>E-Book 페이지</SectionLayout>;
 }
 
 export default Ebook;

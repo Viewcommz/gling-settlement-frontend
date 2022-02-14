@@ -6,15 +6,15 @@ import theme from "styles/theme";
 import NavBar from "components/modules/navBar/navBar";
 import { Pricing, Guide, Consult } from "pages/landing";
 import Home from "pages/index";
-import Signin from "pages/account/signin/signin";
-import "./App.css";
-import SalesInquiry from "pages/settlement";
-import RequireAuth from "routes/RequireAuth";
-import Error from "pages/Error";
+import RequireAuth from "features/auth/RequireAuth";
+import Error from "components/templates/ErrorPage";
 import Dashboard from "pages/dashboard";
 import Ebook from "pages/ebook";
 import Portfolio from "pages/portfolio";
 import Support from "pages/support";
+import "./App.css";
+import SalesInquiry from "features/sales-inquiry/Publisher";
+import Signin from "features/auth/SignIn";
 
 function App() {
     const routes: RouteObject[] = [

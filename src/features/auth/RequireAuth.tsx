@@ -1,10 +1,10 @@
-import api from "api/api";
+import api from "api/instance";
 import useAsync from "hooks/useAsync";
 import { useLocation, Outlet, useNavigate } from "react-router-dom";
-import { RootState } from "store";
+import { RootState } from "app/store";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
-import SectionLayout from "layout/SectionLayout";
+import SectionLayout from "components/templates/SectionLayout";
 
 interface IAuth {
     [key: string]:
@@ -59,7 +59,7 @@ function RequireAuth() {
 
     // 로그인 확인
     const navigate = useNavigate();
-    const isLoggedIn = useSelector((state: RootState) => state.login.isLoggedIn);
+    const isLoggedIn = useSelector((state: RootState) => state.signIn.isSignIn);
     useEffect(() => {
         if (requireAuth && !isLoggedIn) {
             navigate("/signin");

@@ -1,5 +1,7 @@
+import SectionLayout from "components/templates/SectionLayout";
+
 function Consult() {
-  return <div>문의하기</div>;
+    return <SectionLayout>문의하기</SectionLayout>;
 }
 
 export default Consult;

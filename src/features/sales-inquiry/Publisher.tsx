@@ -2,17 +2,15 @@ import FilterBox from "components/modules/filterbox/FilterBox";
 import MenuBar from "components/modules/menuBar/MenuBar";
 import Button from "components/atomic/button/Button";
 import Modal from "components/modules/modal/Modal";
-import SectionLayout from "layout/SectionLayout";
-import SettlementDailyService from "api/services/settlement/daily";
+import SectionLayout from "components/templates/SectionLayout";
+import SettlementDailyService from "api/services/sales-inquiry/daily";
 import useAsync from "hooks/useAsync";
 import { useEffect } from "react";
 
-import { useSelector, useDispatch } from "react-redux";
-import { fetchDailyDatas } from "store/settlement/daily";
-
-import { DailyInquiryProps } from "api/services/settlement/daily";
-
-import { Dispatch } from "store/index";
+import { useDispatch } from "react-redux";
+import { fetchDailyDatas } from "./inquirySlice";
+import { DailyInquiryProps } from "api/services/sales-inquiry/daily";
+import { Dispatch } from "app/store";
 
 let dummyData: DailyInquiryProps = {
     author_name: "",
@@ -40,6 +38,7 @@ function SalesInquiry() {
         <SectionLayout>
             <h2>판매 조회</h2>
             {
+                // 모달창 추가예정...
                 // ReactDOM.createPortal(<Modal />,document.getElementById('modal-root')||document.createElement('div'))
             }
             <Modal
@@ -51,11 +50,8 @@ function SalesInquiry() {
             />
             <MenuBar menus={["일별 판매 현황", "월 정산", "선인세", "기타 지급금"]} applyId={applyIdHandler} />
             <FilterBox />
-            {/* {
-          data.data.result.map((item: any) => <li>{`${item.id}, ${item.author_name}`}</li>)
-        } */}
             {/* 테이블 */}
-            {data && <Button label="모달버튼" />}
+            {data && "데이터 로딩 완료"}
         </SectionLayout>
     );
 }

@@ -1,12 +1,11 @@
-import SectionContainer from "layout/SectionLayout";
+import SectionLayout from "../SectionLayout";
 
 function Home() {
-  return (
-    <SectionContainer>
-      <h3>홈페이지</h3>
-    </SectionContainer>
-  )
+    return (
+        <SectionLayout>
+            <h3>홈페이지</h3>
+        </SectionLayout>
+    );
 }
-
 
 export default Home;
