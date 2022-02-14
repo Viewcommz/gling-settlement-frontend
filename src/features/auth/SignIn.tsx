@@ -58,11 +58,15 @@ function Signin() {
             sid: "HxW1Lab4AB",
         };
 
-        dispatch(getAuth(apiData));
-        if (data) {
-            console.log("data", data);
-            navigate("/");
-        }
+        dispatch(getAuth(apiData))
+            .unwrap()
+            .then((response) => {
+                if (response.status === "success") {
+                    navigate("/");
+                } else {
+                    alert("로그인 정보를 확인해주세요.");
+                }
+            });
 
         resetUserId();
         resetUserPWD();

@@ -9,7 +9,7 @@ import { IAsyncState, IPayload } from "features/models/common";
 const name = "auth"; // 액션타입문자열
 export const getAuth = createAsyncThunk<
     IPayload, // 1-1. thunk action creator가 dispatch하는 액션 type (일반 리덕스와 달리 알아서 dispatch해줍니다.)
-    AuthProps, // 1-2. 비동기함수 promiseCreator 의 인자 type
+    AuthProps, // 1-2. 비동기함수 payloadCreator 의 인자 type
     {
         dispatch: Dispatch;
         rejectValue: { message: string };
@@ -52,8 +52,8 @@ const authSlice = createSlice({
     name: "getAuth",
     initialState: initialState,
     reducers: {
-        clearError(state) {
-            state.authValue.error = false;
+        clearUser(state) {
+            state.authValue = initialState.authValue;
         },
     }, //비동기처리가 필요없이 자동으로 action 객체를 반환하면 될 때 사용하시면 됩니다.
     extraReducers: (builder) => {

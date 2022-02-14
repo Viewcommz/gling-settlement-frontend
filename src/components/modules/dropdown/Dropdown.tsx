@@ -42,7 +42,7 @@ function ProfileMenuItems() {
     const dispatch = useDispatch();
     function signout() {
         dispatch(signInActions.signOut());
-        dispatch(authActions.clearError());
+        dispatch(authActions.clearUser());
     }
     return (
         <>
