@@ -4,13 +4,12 @@ import useInput from "hooks/useInput";
 import Input from "components/atomic/input/Input";
 import useApi from "hooks/useApi";
 import { useDispatch, useSelector } from "react-redux";
-import { getAuth } from "./authSlice";
+import { authActions, getAuth } from "./authSlice";
 import { useNavigate } from "react-router-dom";
 
 import GoogleLogo from "assets/images/sns-logo/btn_google_signin.jpg";
 import KaKaoLogo from "assets/images/sns-logo/btn_kakao_signin.jpg";
 import NaverLogo from "assets/images/sns-logo/btn_naver_signin.jpg";
-import { userActions } from "../user/userSlice";
 import styled, { css } from "styled-components";
 import { Dispatch } from "app/store";
 import { RootState } from "app/store";
@@ -19,12 +18,13 @@ import { signInActions } from "./signInSlice";
 const isNotEmpty = (value: string) => value.trim() !== "";
 
 function Signin() {
-    // let user = useSelector((state: RootState) => state.auth.user);
-    // data loading error 이런식으로 ㅂ다아오게 state.auth.
+    const { data, loading, error } = useSelector((state: RootState) => state.auth.authValue);
     const dispatch: Dispatch = useDispatch();
-    const { isLoading, error, sendRequest: fetchSigninData } = useApi();
-    let navigate = useNavigate();
+    const navigate = useNavigate();
 
+    useEffect(() => {
+        console.log("에러변함", error);
+    }, [error]);
     const {
         value: userId,
         hasValue: userIdHasValue,
@@ -59,13 +59,10 @@ function Signin() {
         };
 
         dispatch(getAuth(apiData));
-        // if (user) {
-        //     console.log("user", user);
-        //     dispatch(signInActions.signIn());
-        //     navigate("/");
-        // } else {
-        //     alert("잘못된 정보");
-        // }
+        if (data) {
+            console.log("data", data);
+            navigate("/");
+        }
 
         resetUserId();
         resetUserPWD();

@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 // 수정해야함. auth props 받아오는 방식으로
 import { signInActions } from "features/auth/signInSlice";
 import styled, { css } from "styled-components";
+import { authActions } from "features/auth/authSlice";
 
 interface DropDownProp {
     id: number;
@@ -41,6 +42,7 @@ function ProfileMenuItems() {
     const dispatch = useDispatch();
     function signout() {
         dispatch(signInActions.signOut());
+        dispatch(authActions.clearError());
     }
     return (
         <>
